@@ -1,0 +1,82 @@
+# From https://emacs.stackexchange.com/questions/28408/org-clock-report-sort-by-time
+
+#+BEGIN_SRC emacs-lisp :results silent
+(defun my-org-clocktable-sorter (ipos tables params)
+  (setq tables (cl-sort tables (lambda (table1 table2) (> (nth 1 table1) (nth 1 table2)))))
+  (funcall (or org-clock-clocktable-formatter 'org-clocktable-write-default) ipos tables params))
+#+END_SRC
+
+#+BEGIN: clocktable :maxlevel 3 :compact t :scope file :formula % 
+#+CAPTION: Clock summary at [2018-08-21 Вт 08:51]
+| Headline         |      Time |     % |
+|------------------+-----------+-------|
+| *Total time*     | *1d 9:08* | 100.0 |
+|------------------+-----------+-------|
+| Task 1           |   1d 9:05 |  99.8 |
+| \_  Task 1.1     |   1d 5:00 |  87.5 |
+| \_    Task 1.1.1 |      2:00 |   6.0 |
+| \_    Task 1.1.2 |     23:00 |  69.4 |
+| \_    Task 1.1.3 |      4:00 |  12.1 |
+| \_  Task 1.2     |      0:02 |   0.1 |
+| \_    Task 1.2.1 |      0:02 |   0.1 |
+| \_  Task 1.3     |      4:03 |  12.2 |
+| \_    Task 1.3.1 |      2:00 |   6.0 |
+| \_    Taks 1.3.3 |      2:03 |   6.2 |
+| Taks 2           |      0:03 |   0.2 |
+| \_  Task 2.1     |      0:03 |   0.2 |
+| \_    Task 2.1.1 |      0:03 |   0.2 |
+#+END:
+
+* Task 1
+** Task 1.1
+*** Task 1.1.1
+:LOGBOOK:
+CLOCK: [2018-08-20 Пн 19:06]--[2018-08-20 Пн 21:06] =>  2:00
+:END:
+*** Task 1.1.2
+:LOGBOOK:
+CLOCK: [2018-08-19 Вс 18:07]--[2018-08-20 Пн 17:07] => 23:00
+:END:
+*** Task 1.1.3
+:LOGBOOK:
+CLOCK: [2018-07-20 Пт 21:07]--[2018-07-21 Сб 01:07] =>  4:00
+:END:
+** Task 1.2
+*** Task 1.2.1
+:LOGBOOK:
+CLOCK: [2018-08-20 Пн 21:05]--[2018-08-20 Пн 21:07] =>  0:02
+:END:
+*** Task 1.2.2
+:LOGBOOK:
+CLOCK: [2018-08-20 Пн 21:05]--[2018-08-20 Пн 21:05] =>  0:00
+:END:
+*** Task 1.2.3
+:LOGBOOK:
+CLOCK: [2018-08-20 Пн 21:08]--[2018-08-20 Пн 21:08] =>  0:00
+:END:
+** Task 1.3
+*** Task 1.3.1
+:LOGBOOK:
+CLOCK: [2018-08-20 Пн 19:08]--[2018-08-20 Пн 21:08] =>  2:00
+:END:
+*** Task 1.3.2
+*** Taks 1.3.3
+:LOGBOOK:
+CLOCK: [2018-08-20 Пн 19:37]--[2018-08-20 Пн 21:40] =>  2:03
+:END:
+* Taks 2
+** Task 2.1
+*** Task 2.1.1
+:LOGBOOK:
+CLOCK: [2018-08-20 Пн 21:05]--[2018-08-20 Пн 21:08] =>  0:03
+:END:
+*** Task 2.1.2
+*** Task 2.1.3
+** Task 2.2
+*** Task 2.2.1
+*** Task 2.2.2
+*** Task 2.2.3
+** Task 2.3
+*** Task 2.3.1
+*** Task 2.3.2
+*** Taks 2.3.3
